@@ -4,57 +4,66 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AlienDictionary {
-	List <Word> dizionario;
+	List <WordEnhanced> dizionario;
 
 	public AlienDictionary() {
-		dizionario = new ArrayList <Word>();
+		dizionario = new ArrayList <>();
 	}
 	
-	public List<Word> getDizionario() {
+	public List<WordEnhanced> getDizionario() {
 		return dizionario;
 	}
 
 	public void addWord (String alienWord, String translation) {
-		Word pTemp= new Word (alienWord, translation);
-		/*if (dizionario.isEmpty()==true) {
-			dizionario.add(pTemp);
-		}
 		
-		for (Word w: dizionario) {
-			/*if (w.equals(pTemp)==true && w!=null) {
-				w.setTranslation(translation);
-			}
-			
-			if (w!=null) {
-				if (w.getAlienWord().compareTo(pTemp.getAlienWord())==0) {
-					w.setTranslation(translation);
+		int posizione = this.dizionario.indexOf(new WordEnhanced (alienWord,null));
+		if (posizione !=-1) { //hai trovato pTemp dentro il dizionario
+			WordEnhanced pTemp = this.dizionario.get(posizione);
+			for (String sTemp: pTemp.getTraduzioni()) {
+				if (sTemp.compareTo(translation)==0) {
+					return;
 				}
 			}
-		}*/
-	
-		int posizione = this.dizionario.indexOf(pTemp);
-		if (posizione !=-1) { //hai trovato pTemp dentro il dizionario
-			this.dizionario.get(posizione).setTranslation(translation);
+			
+			this.dizionario.get(posizione).addTraduzione(translation);;
 		}
 		else {
+			WordEnhanced pTemp = new WordEnhanced (alienWord, null);
+			pTemp.addTraduzione(translation);
 			dizionario.add(pTemp);
 		}
 		
 	}
 	
-	public String translateWord (String alienWord) {
-		for (Word w: dizionario) {
+		public String translateWord (String alienWord) {
+		/*for (Word w: dizionario) {
 			if (w.getAlienWord().compareTo(alienWord)==0 && w!=null) {
 				return w.getTranslation();
 			}
-		}
+		}*/
 		
-		int posizione = this.dizionario.indexOf(new Word (alienWord, ""));
+		String sTemp = "";
+		int posizione = this.dizionario.indexOf(new WordEnhanced (alienWord, null));
 		if (posizione !=-1) { //hai trovato pTemp dentro il dizionario
-			this.dizionario.get(posizione).getTranslation();
+			List <String> lTemp = this.dizionario.get(posizione).getTraduzioni();
+			for (String s:lTemp) {
+    			if (sTemp == "")
+    			{
+    				sTemp=s;
+    			}
+    			else
+    			{
+    				sTemp+="\n" +s;
+    			}
+    			
+    		}
+    		return sTemp;
 		}
 		
 		return null;
 	}
+		
+		
+	
 	
 }

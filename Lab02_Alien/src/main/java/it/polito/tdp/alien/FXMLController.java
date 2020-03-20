@@ -1,6 +1,7 @@
 package it.polito.tdp.alien;
 
 import java.net.URL;
+
 import java.util.ResourceBundle;
 import java.util.StringTokenizer;
 
@@ -12,10 +13,11 @@ import javafx.scene.control.TextField;
 
 public class FXMLController {
 	String parolaInserita;
-	Word nuovaParola;
+	//Word nuovaParola;
 	String parolaAliena;
 	String traduzione;
 	AlienDictionary dizionario;
+	//List <String> elencoTraduzioni = new ArrayList <>();
 
     @FXML
     private ResourceBundle resources;
@@ -90,17 +92,18 @@ public class FXMLController {
     		}
     	}
     	
-    	traduzione = dizionario.translateWord(parolaInserita);
+    	
+    	traduzione= dizionario.translateWord(parolaInserita);
     	if (traduzione==null) {
-    		txtResult.appendText("Parola non presente nel dizionario \n");
-    		txtWord.clear();
-    		return;
-    	} else {
-    		txtResult.appendText("La traduzione della parola e': "+traduzione+"\n");
-    		return;
-    	}
-    	
-    	
+		txtResult.appendText("Parola non presente nel dizionario \n");
+		txtWord.clear();
+		return;
+	} else {
+		txtResult.appendText("La traduzione della parola e': \n"+traduzione+"\n");
+		txtWord.clear();
+		return;
+	}
+	
     	
     	/*if (parolaInserita.contains(" ")==true) {
     	//tokenizer della parola inserita per avere la parola aliena e la traduzione
